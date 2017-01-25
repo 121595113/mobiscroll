@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>移动端时间选择插件用例</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="mobiscroll.css">
+  <script type="text/javascript" src="zepto.min.js"></script>
+  <script type="text/javascript" src="./mobiscroll.js"></script>
+</head>
+
+<body>
+  <input type="text" id="appDate" placeholder="" value="" readonly="readonly">
+  <script type="text/javascript">
+  $(function() {
+    var currYear = (new Date()).getFullYear();
+    var opt = {};
+    opt.date = {
+      preset: 'date'
+    };
+    opt.defaultVal = {
+      theme: 'android-ics light', //皮肤样式
+      display: 'modal', //显示方式
+      mode: 'scroller', //日期选择模式
+      dateFormat: 'yyyy-mm-dd',
+      lang: 'zh',
+      title: '选择日期',
+      showNow: true,
+      startYear: 2011, //开始年份
+      endYear: currYear, //结束年份
+      onSelect: function(val) {
+        // 选择日期的回调可以写在这里
+        console.log(val)
+      },
+      onShow: function(dw,v){
+      	var $dw = $('.dw');
+      	var height = $dw.height();
+      	$dw.css({
+      		'top': ($(window).height() - height) / 2
+      	})
+      	$('.dw-persp').height($(window).height());
+      	$(dw).css({
+      		'position': 'fixed',
+      		'top': 0,
+      		'left': 0,
+      		'width': '100%',
+      		'height': '100%'
+      	})
+      }
+    };
+
+    $("#appDate").mobiscroll($.extend({}, opt['date'], opt['defaultVal']));
+
+  });
+  </script>
+</body>
+
+</html>
